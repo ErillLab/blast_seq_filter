@@ -1,4 +1,4 @@
-<h1> sequence_filter <h1>
+<h1> sequence_filter </h1>
 **Overview**
 
 ![Image of Yaktocat](https://github.com/ErillLab/I-BINFTools/blob/master/sequence_filter/archive-misc/seq-filter-pipeline.png)
