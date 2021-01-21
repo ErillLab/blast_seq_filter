@@ -406,7 +406,7 @@ def search_blast(input_records, max_hits=50, e_cutoff=10E-10, tax_limit=None, mi
         Tne max number of hits to return. The default is 50.
     e_cutoff : float, optional
         The threshold for the E-value of the hits. The default is 10E-10.
-    tax_limit : [], optional
+    tax_limit : [string], optional
         The taxonomic limits to search in. The default is None.
     min_cover: float, optional
         The minimum coverage of the hits 
