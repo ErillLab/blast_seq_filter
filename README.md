@@ -1,4 +1,4 @@
-<h1> sequence_filter </h1>
+<h1> blast_sequence_filter </h1>
 
 **Overview**
 
@@ -81,7 +81,7 @@ entrez_parameters |
 `api_key` | NCBI API key
 ---|------ 
 blast_parameters |
-`tax_limit` | Limits the BLAST search to a specified taxon
+`tax_limit` | Limits the BLAST search to a specified taxons. Set value to `null` if not applicable. Input taxids must be in a list format: `"tax_limit":["taxid1", "taxid2", "taxid3"]`
 `e-val` | Cutoff for the e-value for the BLAST hits that are returned
 `coverage_min` | Minimum coverage for the BLAST hits that are returned 
 `max_hits`| Max number of hits returned.
