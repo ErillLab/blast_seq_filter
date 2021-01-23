@@ -488,6 +488,10 @@ def search_blast(input_records, max_hits=50, e_cutoff=10E-10, tax_limit=None, mi
                     result_handle = NCBIWWW.qblast("blastp", "nr" ,input_seq, 
                                                entrez_query=taxon, expect=e_cutoff,
                                                hitlist_size=max_hits)
+
+                    #Parses the resulting hits as a list
+                    print("\t|~> Getting records")
+                    blast_records = list(NCBIXML.parse(result_handle))
                     
                     time.sleep(SLEEP_TIME)
                     break
