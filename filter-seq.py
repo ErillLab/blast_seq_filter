@@ -792,7 +792,13 @@ def get_nuc_seq(nuc_rec_in, start_adj=250, stop_adj=3, isolate_promoters=False):
         
         #The start of the promoter is set to the start/end of the upstream gene
         # based on the directionality. ( --> --> or <-- -->)
-        promoter_start = max(int(coding_intervals[-2][0]), int(coding_intervals[-2][1]))
+        #If there was no downstream adjustment, then the last record in the list is upstream from the feature of interest.
+        #If there was a downstream adjustment, then the second to last record in the list is upstream from the feature of interest.
+
+        if stop_adj > 0:
+            promoter_start = max(int(coding_intervals[-2][0]), int(coding_intervals[-2][1]))
+        else:
+            promoter_start = max(int(coding_intervals[-1][0]), int(coding_intervals[-1][1]))
         
         
         #Everything upstream of the promoter start is clipped off the 
