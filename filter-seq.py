@@ -22,7 +22,7 @@ import sys
 
 
 #****INPUT JSON FILE PATH****#
-INPUT_JSON = "input_VC1080_allGenes.json" 
+INPUT_JSON = "T6SS.json" 
 #****************************#
 
 #Entrez request parameters
@@ -614,24 +614,22 @@ def get_nuc_rec_from_prot(prot_id):
     
     
     for i in range(REQUEST_LIMIT):
-            
-                try:
-                
-                   records = Entrez.read(Entrez.efetch(db="protein",id=prot_id, rettype="ipg", 
-                                       retmode="xml"))
+        try:
+            records = Entrez.read(Entrez.efetch(db="protein",id=prot_id, rettype="ipg",
+                      retmode="xml"))
+            time.sleep(SLEEP_TIME)
+            break
                     
-                   time.sleep(SLEEP_TIME)
-                   break
+        except:
                     
-                except:
+            print("\t\tNCBI exception raised on attempt " + str(i) + "\n\t\treattempting now...")
                     
-                    print("\t\tNCBI exception raised on attempt " + str(i) + "\n\t\treattempting now...")
-                    
-                    if i == (REQUEST_LIMIT - 1):
-                        print("\t\tCould not download record after " + str(REQUEST_LIMIT) + " attempts")
+            if i == (REQUEST_LIMIT - 1):
+                print("\t\tCould not download record after " + str(REQUEST_LIMIT) + " attempts")
+                print("\t|~> No gene records found for " + prot_id)
+                return None
     
-    
-   #The priority scores for the types of gene records available
+    #The priority scores for the types of gene records available
     p_scores = {"NC_": 7, "AC_": 7, 
                 "AE": 6, "CP": 6, "CY": 6,
                 "NZ_": 5, "NT_": 5, "NW_": 5,
