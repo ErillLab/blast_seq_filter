@@ -36,6 +36,7 @@ taxonomic_limit = None
 e_val  = None
 coverage_min = None
 max_hits = 50
+db = "nr"
 
 #Nucleotide sequence parameters:
     # if max_percent_similarity = -1, no filtering is applied
@@ -394,7 +395,7 @@ def sim_filter(input_seqs, percent_ident):
     return filtered_list
     
 
-def search_blast(input_records, max_hits=50, e_cutoff=10E-10, tax_limit=None, min_cover=None):
+def search_blast(input_records, max_hits=50, e_cutoff=10E-10, tax_limit=None, min_cover=None, db="nr"):
     '''
     Performs blast search for a set of records. 
 
@@ -410,6 +411,8 @@ def search_blast(input_records, max_hits=50, e_cutoff=10E-10, tax_limit=None, mi
         The taxonomic limits to search in. The default is None.
     min_cover: float, optional
         The minimum coverage of the hits 
+    db : string, optional
+        The database to be queried. Default is 'nr'.
 
 
     Returns
@@ -510,8 +513,9 @@ def search_blast(input_records, max_hits=50, e_cutoff=10E-10, tax_limit=None, mi
             
                 try:
                 
-                    result_handle = NCBIWWW.qblast("blastp", "nr", input_seq, 
-                                           expect=e_cutoff, hitlist_size=max_hits)
+                    result_handle = NCBIWWW.qblast(program="blastp", database=db,
+                                           sequence=input_seq, expect=e_cutoff,
+                                           hitlist_size=max_hits)
                     
                     time.sleep(SLEEP_TIME)
 
@@ -903,6 +907,7 @@ def load_json(j_file):
         e_val  = file_reader["blast_parameters"][0]["e_val"]
         coverage_min = file_reader["blast_parameters"][0]["coverage_min"]
         max_hits = file_reader["blast_parameters"][0]["max_hits"]
+        db = file_reader["blast_parameters"][0]["db"]
             
         if output_type == "prot":
             output_ftype = "csv"
